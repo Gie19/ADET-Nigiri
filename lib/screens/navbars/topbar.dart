@@ -39,7 +39,7 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
             leading: const Icon(Icons.shopping_cart),
             title: const Text("Orders"),
             onTap: () {
-              Navigator.pushNamed(context, "/orders");
+              Navigator.pushNamed(context, "/cart");
             },
           ),
           ListTile(
@@ -113,6 +113,18 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
         child: Image.asset("assets/images/logo2.png", height: 40.0),
       ),
       centerTitle: true,
+      leading: Builder(
+        builder:
+            (context) => IconButton(
+              icon: const Icon(
+                Icons.menu,
+                color: Colors.black,
+              ), // Hamburger menu icon
+              onPressed: () {
+                Scaffold.of(context).openDrawer(); // Open the drawer
+              },
+            ),
+      ),
     );
   }
 

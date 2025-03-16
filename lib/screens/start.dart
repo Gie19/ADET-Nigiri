@@ -9,13 +9,13 @@ class StartPage extends StatefulWidget {
 }
 
 class _StartPageState extends State<StartPage> {
-  int _currentIndex = 0; // Track the active index of the carousel
+  int _currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        color: const Color(0xFF090C9B), // Set the background color to #090c9b
+        color: const Color(0xFF090C9B),
         child: ListView(
           children: [
             // Custom logo at the top
@@ -71,7 +71,7 @@ class _StartPageState extends State<StartPage> {
                 viewportFraction: 0.8,
                 onPageChanged: (index, reason) {
                   setState(() {
-                    _currentIndex = index; // Update the active index
+                    _currentIndex = index;
                   });
                 },
               ),
@@ -89,10 +89,7 @@ class _StartPageState extends State<StartPage> {
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         color:
-                            _currentIndex == index
-                                ? Colors
-                                    .white // Active dot color
-                                : Colors.grey, // Inactive dot color
+                            _currentIndex == index ? Colors.white : Colors.grey,
                       ),
                     );
                   }).toList(),
@@ -108,13 +105,13 @@ class _StartPageState extends State<StartPage> {
                     style: TextStyle(
                       fontFamily: 'OpenSans',
                       fontSize: 24,
-                      color: Colors.white, // Change text color to white
+                      color: Colors.white,
                     ),
                   ),
                   const SizedBox(height: 20),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.white, // Button background color
+                      backgroundColor: Colors.white,
                       foregroundColor: const Color(
                         0xFF090C9B,
                       ), // Button text color

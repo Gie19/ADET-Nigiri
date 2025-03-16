@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:practiceapp/screens/navbars/botbar.dart';
 import 'package:practiceapp/screens/navbars/topbar.dart';
 import 'package:practiceapp/utils/favorites_manager.dart';
+import 'package:practiceapp/utils/cart_manager.dart'; // Import CartManager
 
 class ProductOneCard extends StatefulWidget {
   const ProductOneCard({super.key});
@@ -180,9 +181,28 @@ class _ProductOneCardState extends State<ProductOneCard> {
                         height: 50.0, // Set the height of the button
                         child: ElevatedButton.icon(
                           onPressed: () {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text("Added to cart!")),
-                            );
+                            setState(() {
+                              // Check if the product is already in the cart
+                              if (CartManager.isInCart(product)) {
+                                // If it exists, update the quantity and show a message
+                                CartManager.addToCart(product, quantity);
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text(
+                                      "Product already in cart. Quantity updated!",
+                                    ),
+                                  ),
+                                );
+                              } else {
+                                // If it doesn't exist, add it to the cart and show a message
+                                CartManager.addToCart(product, quantity);
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text("Added to cart!"),
+                                  ),
+                                );
+                              }
+                            });
                           },
                           icon: const Icon(
                             Icons.shopping_cart,

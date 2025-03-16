@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:practiceapp/screens/navbars/botbar.dart';
 import 'package:practiceapp/screens/navbars/topbar.dart';
 import 'package:practiceapp/utils/favorites_manager.dart';
+import 'package:practiceapp/utils/cart_manager.dart'; // Import CartManager
 
 class FavoritesPage extends StatefulWidget {
   const FavoritesPage({super.key});
@@ -17,30 +18,91 @@ class _FavoritesScreenState extends State<FavoritesPage> {
     return Scaffold(
       appBar: TopBar(),
       drawer: TopBar.buildDrawer(context),
-      body:
-          favorites.isEmpty
-              ? const Center(
-                child: Text(
-                  "No favorites added yet!",
-                  style: TextStyle(fontSize: 18.0),
-                ),
-              )
-              : ListView.builder(
-                itemCount: favorites.length,
-                itemBuilder: (context, index) {
-                  final favorite = favorites[index];
-                  return ListTile(
-                    leading: Image.asset(
-                      favorite['image'],
-                      width: 50.0,
-                      height: 50.0,
-                      fit: BoxFit.cover,
+      body: Container(
+        color: const Color(0xFF090C9B),
+        child:
+            favorites.isEmpty
+                ? const Center(
+                  child: Text(
+                    "No favorites added yet!",
+                    style: TextStyle(
+                      fontSize: 30.0,
+                      fontFamily: "OpenSans",
+                      color: Colors.white,
                     ),
-                    title: Text(favorite['name']),
-                    subtitle: Text("\$${favorite['price']}"),
-                  );
-                },
-              ),
+                  ),
+                )
+                : Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Expanded(
+                        child: ListView.builder(
+                          itemCount: favorites.length,
+                          itemBuilder: (context, index) {
+                            final favorite = favorites[index];
+                            return ListTile(
+                              contentPadding: const EdgeInsets.symmetric(
+                                vertical: 8.0,
+                                horizontal: 16.0,
+                              ),
+                              leading: Image.asset(
+                                favorite['image'],
+                                width: 120.0,
+                                height: 120.0,
+                                fit: BoxFit.cover,
+                              ),
+                              title: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    favorite['name'],
+                                    style: const TextStyle(
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 8.0),
+                                  Row(
+                                    children: [
+                                      IconButton(
+                                        onPressed: () {
+                                          setState(() {
+                                            FavoritesManager.removeFavorite(
+                                              favorite,
+                                            );
+                                          });
+                                        },
+                                        icon: const Icon(
+                                          Icons.remove_circle,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      IconButton(
+                                        onPressed: () {
+                                          setState(() {
+                                            // Add the item to the cart
+                                            CartManager.addToCart(favorite, 1);
+                                          });
+                                        },
+                                        icon: const Icon(
+                                          Icons.shopping_cart,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+      ),
       bottomNavigationBar: BotBar(),
     );
   }

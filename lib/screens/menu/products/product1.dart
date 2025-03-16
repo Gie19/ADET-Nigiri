@@ -57,19 +57,6 @@ class _ProductOneState extends State<ProductOne> {
                   color: Colors.black,
                 ),
               ),
-              const SizedBox(height: 10),
-              // Favorite Icon Button
-              IconButton(
-                onPressed: () {
-                  setState(() {
-                    isFavorite = !isFavorite; // Toggle favorite state
-                  });
-                },
-                icon: Icon(
-                  isFavorite ? Icons.favorite : Icons.favorite_border,
-                  color: isFavorite ? Colors.red : Colors.grey,
-                ),
-              ),
             ],
           ),
         ),

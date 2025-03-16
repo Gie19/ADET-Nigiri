@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:practiceapp/screens/start.dart';
 import 'package:practiceapp/screens/menu/menu.dart';
 import 'package:practiceapp/screens/favorite.dart';
+import 'package:practiceapp/screens/cart.dart';
 
 void main() {
   runApp(
@@ -12,6 +13,7 @@ void main() {
       routes: {
         '/menu': (context) => MenuPage(),
         '/favorites': (context) => FavoritesPage(),
+        '/cart': (context) => CartPage(),
       },
     ),
   );

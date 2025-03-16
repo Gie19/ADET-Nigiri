@@ -7,7 +7,7 @@ class MenuBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: const Color(0xFF090C9B), // Set the background color
+      color: const Color(0xFF090C9B),
       child: Center(
         child: SingleChildScrollView(
           child: Column(
