@@ -30,7 +30,7 @@ class BotBar extends StatelessWidget {
             Navigator.pushNamed(context, "/orders");
             break;
           case 2:
-            Navigator.pushNamed(context, "/");
+            Navigator.pushNamed(context, "/favorites");
             break;
         }
       },

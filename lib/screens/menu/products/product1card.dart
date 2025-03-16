@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:practiceapp/screens/navbars/botbar.dart';
 import 'package:practiceapp/screens/navbars/topbar.dart';
+import 'package:practiceapp/utils/favorites_manager.dart';
 
 class ProductOneCard extends StatefulWidget {
   const ProductOneCard({super.key});
@@ -10,12 +11,20 @@ class ProductOneCard extends StatefulWidget {
 }
 
 class _ProductOneCardState extends State<ProductOneCard> {
-  int quantity = 1; // State to track the selected quantity
+  int quantity = 1;
+
+  // Product details
+  final Map<String, dynamic> product = {
+    'image': "assets/images/product1.jpg",
+    'name': "Product Name",
+    'price': 20.00,
+  };
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const TopBar(),
+      drawer: TopBar.buildDrawer(context),
       body: Column(
         children: [
           // Top Section: Back Button, Product Name, and Image
@@ -74,28 +83,54 @@ class _ProductOneCardState extends State<ProductOneCard> {
           Expanded(
             child: Container(
               decoration: const BoxDecoration(
-                color: Color(
-                  0xFFB4C5E4,
-                ), // Background color for the bottom section
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(16.0), // Round the top-left corner
-                  topRight: Radius.circular(16.0), // Round the top-right corner
-                ),
+                color: Color(0xFFB4C5E4),
+                borderRadius: BorderRadius.only(topLeft: Radius.circular(16.0)),
               ),
               padding: const EdgeInsets.all(16.0),
               child: Column(
-                mainAxisAlignment:
-                    MainAxisAlignment.spaceBetween, // Distribute content evenly
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Product Price
-                  const Text(
-                    "\$20.00", // Replace with the product price
-                    style: TextStyle(
-                      fontSize: 30.0,
-                      fontFamily: "OpenSans",
-                      fontWeight: FontWeight.bold,
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        "\$20.00",
+                        style: TextStyle(
+                          fontSize: 30.0,
+                          fontFamily: "OpenSans",
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            if (FavoritesManager.isFavorite(product)) {
+                              FavoritesManager.removeFavorite(product);
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text("Removed from favorites!"),
+                                ),
+                              );
+                            } else {
+                              FavoritesManager.addFavorite(product);
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text("Added to favorites!"),
+                                ),
+                              );
+                            }
+                          });
+                        },
+                        child: Icon(
+                          FavoritesManager.isFavorite(product)
+                              ? Icons.favorite
+                              : Icons.favorite_border,
+                          color: Colors.red,
+                          size: 30.0,
+                        ),
+                      ),
+                    ],
                   ),
                   // Product Description
                   const Text(

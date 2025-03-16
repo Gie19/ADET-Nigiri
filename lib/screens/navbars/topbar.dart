@@ -24,10 +24,7 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
           DrawerHeader(
             decoration: const BoxDecoration(color: Color(0xFFFBFFF1)),
             child: Center(
-              child: Image.asset(
-                "assets/images/logo2.png", // Path to your logo image
-                height: 300.0,
-              ),
+              child: Image.asset("assets/images/logo2.png", height: 300.0),
             ),
           ),
           // Navigation Links
@@ -84,7 +81,7 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
                     launchURL("https://tiktok.com/@nigiristation");
                   },
                   child: Image.asset(
-                    "assets/images/tiktok.png", // Path to TikTok image
+                    "assets/images/tiktok.png",
                     height: 40.0,
                     width: 40.0,
                   ),
@@ -94,7 +91,7 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
                     launchURL("https://instagram.com/nigiristation");
                   },
                   child: Image.asset(
-                    "assets/images/instagram.png", // Path to Instagram image
+                    "assets/images/instagram.png",
                     height: 40.0,
                     width: 40.0,
                   ),
@@ -113,12 +110,9 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: const Color(0xFFFBFFF1),
       title: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Image.asset(
-          "assets/images/logo2.png", // Path to your logo image
-          height: 40.0,
-        ),
+        child: Image.asset("assets/images/logo2.png", height: 40.0),
       ),
-      centerTitle: true, // Center the logo in the AppBar
+      centerTitle: true,
     );
   }
 
