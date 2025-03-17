@@ -18,7 +18,6 @@ class _StartPageState extends State<StartPage> {
         color: const Color(0xFF090C9B),
         child: ListView(
           children: [
-            // Custom logo at the top
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Center(
@@ -77,7 +76,6 @@ class _StartPageState extends State<StartPage> {
               ),
             ),
             const SizedBox(height: 10),
-            // Carousel Indicators
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children:
@@ -95,7 +93,6 @@ class _StartPageState extends State<StartPage> {
                   }).toList(),
             ),
             const SizedBox(height: 20),
-            // Welcome Text and Button
             Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -112,9 +109,7 @@ class _StartPageState extends State<StartPage> {
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.white,
-                      foregroundColor: const Color(
-                        0xFF090C9B,
-                      ), // Button text color
+                      foregroundColor: const Color(0xFF090C9B),
                     ),
                     child: const Text(
                       "Start Ordering",

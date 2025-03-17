@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:practiceapp/screens/navbars/botbar.dart';
 import 'package:practiceapp/screens/navbars/topbar.dart';
 import 'package:practiceapp/utils/favorites_manager.dart';
-import 'package:practiceapp/utils/cart_manager.dart'; // Import CartManager
+import 'package:practiceapp/utils/cart_manager.dart';
 
 class FavoritesPage extends StatefulWidget {
   const FavoritesPage({super.key});
@@ -82,9 +82,15 @@ class _FavoritesScreenState extends State<FavoritesPage> {
                                       IconButton(
                                         onPressed: () {
                                           setState(() {
-                                            // Add the item to the cart
                                             CartManager.addToCart(favorite, 1);
                                           });
+                                          ScaffoldMessenger.of(
+                                            context,
+                                          ).showSnackBar(
+                                            const SnackBar(
+                                              content: Text("Added to cart!"),
+                                            ),
+                                          );
                                         },
                                         icon: const Icon(
                                           Icons.shopping_cart,

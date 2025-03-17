@@ -81,10 +81,6 @@ class _CartPageState extends State<CartPage> {
                                         setState(() {
                                           if (cartItem['quantity'] > 1) {
                                             cartItem['quantity']--;
-                                          } else {
-                                            CartManager.removeFromCart(
-                                              cartItem,
-                                            );
                                           }
                                         });
                                       },

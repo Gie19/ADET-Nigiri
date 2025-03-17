@@ -1,16 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:practiceapp/screens/menu/products/product1card.dart'; // Import the new page
+import 'package:practiceapp/screens/menu/products/product1/product1card.dart';
 
-class ProductOne extends StatefulWidget {
+class ProductOne extends StatelessWidget {
   const ProductOne({super.key});
-
-  @override
-  State<ProductOne> createState() => _ProductOneState();
-}
-
-class _ProductOneState extends State<ProductOne> {
-  bool isFavorite =
-      false; // State to track if the product is marked as favorite
 
   @override
   Widget build(BuildContext context) {
@@ -22,9 +14,9 @@ class _ProductOneState extends State<ProductOne> {
         );
       },
       child: Card(
-        elevation: 4.0, // Add shadow to the card
+        elevation: 4.0,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12.0), // Rounded corners
+          borderRadius: BorderRadius.circular(12.0),
         ),
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -40,7 +32,7 @@ class _ProductOneState extends State<ProductOne> {
               const SizedBox(height: 10),
               // Product Label
               const Text(
-                "Product Name",
+                "Product 1",
                 style: TextStyle(
                   fontSize: 18.0,
                   fontWeight: FontWeight.bold,
@@ -50,7 +42,7 @@ class _ProductOneState extends State<ProductOne> {
               const SizedBox(height: 5),
               // Product Price
               const Text(
-                "\$20.00", // Replace with the product price
+                "120.00",
                 style: TextStyle(
                   fontSize: 16.0,
                   fontFamily: "OpenSans",

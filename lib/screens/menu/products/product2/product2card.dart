@@ -2,25 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:practiceapp/screens/navbars/botbar.dart';
 import 'package:practiceapp/screens/navbars/topbar.dart';
 import 'package:practiceapp/utils/favorites_manager.dart';
-import 'package:practiceapp/utils/cart_manager.dart'; // Import CartManager
+import 'package:practiceapp/utils/cart_manager.dart';
 
-class ProductOneCard extends StatefulWidget {
-  const ProductOneCard({super.key});
+class ProductTwoCard extends StatefulWidget {
+  const ProductTwoCard({super.key});
 
   @override
-  State<ProductOneCard> createState() => _ProductOneCardState();
+  State<ProductTwoCard> createState() => _ProductTwoCardState();
 }
 
-class _ProductOneCardState extends State<ProductOneCard> {
+class _ProductTwoCardState extends State<ProductTwoCard> {
   int quantity = 1;
 
   // Product details
   final Map<String, dynamic> product = {
-    'image': "assets/images/product1.jpg",
-    'name': "Product Name",
-    'price': 20.00,
+    'image': "assets/images/product2.jpg",
+    'name': "Product 2",
+    'price': 200.00,
+    'description':
+        "This is a detailed description of the product. It provides more information about the product's features and benefits.",
   };
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,12 +39,12 @@ class _ProductOneCardState extends State<ProductOneCard> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const SizedBox(height: 40.0), // Space for the back button
+                    const SizedBox(height: 40.0),
                     // Product Name
-                    const Center(
+                    Center(
                       child: Text(
-                        "Product Name",
-                        style: TextStyle(
+                        product['name'],
+                        style: const TextStyle(
                           fontSize: 24.0,
                           fontFamily: "OpenSans",
                           fontWeight: FontWeight.bold,
@@ -55,7 +56,7 @@ class _ProductOneCardState extends State<ProductOneCard> {
                     // Product Image
                     Center(
                       child: Image.asset(
-                        "assets/images/product1.jpg",
+                        product['image'],
                         height: 400.0,
                         fit: BoxFit.cover,
                       ),
@@ -95,14 +96,16 @@ class _ProductOneCardState extends State<ProductOneCard> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text(
-                        "\$20.00",
-                        style: TextStyle(
+                      // Product Price
+                      Text(
+                        "\$${product['price']}",
+                        style: const TextStyle(
                           fontSize: 30.0,
                           fontFamily: "OpenSans",
                           fontWeight: FontWeight.bold,
                         ),
                       ),
+                      // Favorite Button
                       GestureDetector(
                         onTap: () {
                           setState(() {
@@ -134,9 +137,9 @@ class _ProductOneCardState extends State<ProductOneCard> {
                     ],
                   ),
                   // Product Description
-                  const Text(
-                    "This is a detailed description of the product. It provides more information about the product's features and benefits.",
-                    style: TextStyle(
+                  Text(
+                    product['description'],
+                    style: const TextStyle(
                       fontSize: 16.0,
                       fontFamily: "OpenSans",
                       color: Colors.white,
@@ -206,24 +209,21 @@ class _ProductOneCardState extends State<ProductOneCard> {
                           },
                           icon: const Icon(
                             Icons.shopping_cart,
-                            color: Color(0xFF090C9B), // Set icon color
-                            size: 24.0, // Adjust icon size if needed
+                            color: Color(0xFF090C9B),
+                            size: 24.0,
                           ),
                           label: const Text(
                             "Add to Cart",
                             style: TextStyle(
-                              color: Color(0xFF090C9B), // Set text color
-                              fontSize: 18.0, // Increase font size
+                              color: Color(0xFF090C9B),
+                              fontSize: 18.0,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
                           style: ElevatedButton.styleFrom(
-                            backgroundColor:
-                                Colors.white, // Set button background color
+                            backgroundColor: Colors.white,
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(
-                                8.0,
-                              ), // Optional: Rounded corners
+                              borderRadius: BorderRadius.circular(8.0),
                             ),
                           ),
                         ),

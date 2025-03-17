@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:practiceapp/screens/menu/products/product1.dart';
+import 'package:practiceapp/screens/menu/products/product1/product1.dart';
+import 'package:practiceapp/screens/menu/products/product2/product2.dart';
 
 class MenuBody extends StatelessWidget {
   const MenuBody({super.key});
@@ -34,7 +35,7 @@ class MenuBody extends StatelessWidget {
                     child: ProductOne(), // Product card 1
                   ),
                   Expanded(
-                    child: ProductOne(), // Product card 2
+                    child: ProductTwo(), // Product card 2
                   ),
                 ],
               ),
@@ -48,19 +49,6 @@ class MenuBody extends StatelessWidget {
                   ),
                   Expanded(
                     child: ProductOne(), // Product card 4
-                  ),
-                ],
-              ),
-              SizedBox(height: 16.0), // Add spacing between rows
-              // Third Row
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Expanded(
-                    child: ProductOne(), // Product card 5
-                  ),
-                  Expanded(
-                    child: ProductOne(), // Product card 6
                   ),
                 ],
               ),
