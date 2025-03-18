@@ -25,7 +25,7 @@ class ProductOne extends StatelessWidget {
             children: [
               // Product Image
               Image.asset(
-                "assets/images/product1.jpg",
+                "assets/images/product1.JPG",
                 height: 120.0,
                 fit: BoxFit.cover,
               ),

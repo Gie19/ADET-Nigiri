@@ -11,119 +11,148 @@ class StartPage extends StatefulWidget {
 class _StartPageState extends State<StartPage> {
   int _currentIndex = 0;
 
+  final List<Map<String, String>> carouselItems = [
+    {
+      "title": "Welcome to Nigiri Station!",
+      "subtitle":
+          "Get your favorite Nigiri Station's onigiri anytime, anywhere!",
+      "logo": "assets/images/logo1.png",
+    },
+    {
+      "image": "assets/images/start1.jpg",
+      "title": "Freshly Made Daily!",
+      "subtitle": "Enjoy delicious onigiri made with the freshest ingredients.",
+    },
+    {
+      "image": "assets/images/start2.jpg",
+      "title": "Save Your Favorites!",
+      "subtitle": "Easily reorder your go-to onigiri with a single tap.",
+    },
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        color: const Color(0xFF090C9B),
-        child: ListView(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Center(
-                child: Image.asset("assets/images/logo1.png", height: 100.0),
-              ),
-            ),
-            const SizedBox(height: 20),
-            // Carousel Slider
-            CarouselSlider(
-              items: [
-                Container(
-                  margin: const EdgeInsets.all(6.0),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8.0),
-                    image: const DecorationImage(
-                      image: AssetImage("assets/images/nigiri1.jpg"),
+      body: Column(
+        children: [
+          Container(
+            width: double.infinity,
+            height: MediaQuery.of(context).size.height * 0.35,
+            color: const Color(0xFF001489),
+            alignment: Alignment.center,
+            child:
+                _currentIndex == 0
+                    ? Image.asset(
+                      "assets/images/logo1.png",
+                      width: 150,
+                      fit: BoxFit.contain,
+                    )
+                    : Image.asset(
+                      carouselItems[_currentIndex]["image"] ??
+                          "assets/images/start1.jpg",
+                      width: double.infinity,
                       fit: BoxFit.cover,
                     ),
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.all(6.0),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8.0),
-                    image: const DecorationImage(
-                      image: AssetImage("assets/images/nigiri1.jpg"),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.all(6.0),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8.0),
-                    image: const DecorationImage(
-                      image: AssetImage("assets/images/nigiri1.jpg"),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-              ],
-              options: CarouselOptions(
-                height: 600.0,
-                enlargeCenterPage: true,
-                autoPlay: true,
-                aspectRatio: 16 / 9,
-                autoPlayCurve: Curves.fastOutSlowIn,
-                enableInfiniteScroll: true,
-                autoPlayAnimationDuration: const Duration(milliseconds: 800),
-                viewportFraction: 0.8,
-                onPageChanged: (index, reason) {
-                  setState(() {
-                    _currentIndex = index;
-                  });
-                },
-              ),
-            ),
-            const SizedBox(height: 10),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children:
-                  [0, 1, 2].map((index) {
-                    return Container(
-                      width: 12.0,
-                      height: 12.0,
-                      margin: const EdgeInsets.symmetric(horizontal: 4.0),
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color:
-                            _currentIndex == index ? Colors.white : Colors.grey,
-                      ),
-                    );
-                  }).toList(),
-            ),
-            const SizedBox(height: 20),
-            Center(
+          ),
+
+          Expanded(
+            child: Container(
+              width: double.infinity,
+              color: const Color(0xFF001489),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  const Text(
-                    "Welcome to Nigiri Station!",
-                    style: TextStyle(
-                      fontFamily: 'OpenSans',
-                      fontSize: 24,
-                      color: Colors.white,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  const SizedBox(height: 20),
+
+                  CarouselSlider(
+                    items:
+                        carouselItems.map((item) {
+                          return Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text(
+                                item["title"]!,
+                                textAlign: TextAlign.center,
+                                style: const TextStyle(
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              const SizedBox(height: 10),
+                              Text(
+                                item["subtitle"]!,
+                                textAlign: TextAlign.center,
+                                style: const TextStyle(
+                                  fontSize: 17,
+                                  color: Colors.white70,
+                                ),
+                              ),
+                            ],
+                          );
+                        }).toList(),
+                    options: CarouselOptions(
+                      height: 180.0,
+                      autoPlay: true,
+                      viewportFraction: 1.0,
+                      enlargeCenterPage: false,
+                      onPageChanged: (index, reason) {
+                        setState(() {
+                          _currentIndex = index;
+                        });
+                      },
                     ),
                   ),
-                  const SizedBox(height: 20),
+
+                  const SizedBox(height: 40),
+
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: List.generate(carouselItems.length, (index) {
+                      return Container(
+                        width: 10.0,
+                        height: 10.0,
+                        margin: const EdgeInsets.symmetric(horizontal: 5.0),
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color:
+                              _currentIndex == index
+                                  ? Colors.white
+                                  : Colors.grey,
+                        ),
+                      );
+                    }),
+                  ),
+
+                  const SizedBox(height: 35),
+
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.white,
-                      foregroundColor: const Color(0xFF090C9B),
+                      foregroundColor: const Color(0xFF001489),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 40,
+                        vertical: 14,
+                      ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
                     ),
                     child: const Text(
-                      "Start Ordering",
-                      style: TextStyle(fontFamily: 'OpenSans'),
+                      "Get Started",
+                      style: TextStyle(fontSize: 18, fontFamily: "Helvetica"),
                     ),
                     onPressed: () {
                       Navigator.pushNamed(context, "/menu");
                     },
                   ),
+
+                  const SizedBox(height: 25),
                 ],
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

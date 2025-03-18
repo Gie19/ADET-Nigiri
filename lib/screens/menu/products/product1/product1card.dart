@@ -16,7 +16,8 @@ class _ProductOneCardState extends State<ProductOneCard> {
 
   // Product details
   final Map<String, dynamic> product = {
-    'image': "assets/images/product1.jpg",
+    'image': "assets/images/product1.JPG",
+    'image2': "assets/images/product1r.png",
     'name': "Product 1",
     'price': 150.00,
     'description':
@@ -56,10 +57,17 @@ class _ProductOneCardState extends State<ProductOneCard> {
                     const SizedBox(height: 16.0),
                     // Product Image
                     Center(
-                      child: Image.asset(
-                        product['image'],
-                        height: 400.0,
-                        fit: BoxFit.cover,
+                      child: SizedBox(
+                        // width:
+                        // double
+                        //     .infinity, // Ensures the image takes the full width of the parent
+                        child: Image.asset(
+                          product['image2'],
+                          height: 300.0,
+                          fit:
+                              BoxFit
+                                  .cover, // Adjust fit to ensure proper centering
+                        ),
                       ),
                     ),
                   ],
@@ -87,7 +95,10 @@ class _ProductOneCardState extends State<ProductOneCard> {
             child: Container(
               decoration: const BoxDecoration(
                 color: Color(0xFFB4C5E4),
-                borderRadius: BorderRadius.only(topLeft: Radius.circular(16.0)),
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(25.0),
+                  topRight: Radius.circular(25.0),
+                ),
               ),
               padding: const EdgeInsets.all(16.0),
               child: Column(
@@ -224,7 +235,7 @@ class _ProductOneCardState extends State<ProductOneCard> {
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.white,
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8.0),
+                              borderRadius: BorderRadius.circular(30.0),
                             ),
                           ),
                         ),

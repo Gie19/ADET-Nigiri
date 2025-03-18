@@ -16,7 +16,7 @@ class _ProductTwoCardState extends State<ProductTwoCard> {
 
   // Product details
   final Map<String, dynamic> product = {
-    'image': "assets/images/product2.jpg",
+    'image': "assets/images/product2.JPG",
     'name': "Product 2",
     'price': 200.00,
     'description':
