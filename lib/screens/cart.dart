@@ -68,6 +68,7 @@ class _CartPageState extends State<CartPage> {
                       onCheckoutComplete: _handleCheckoutComplete,
                       onBackPressed: _handleBackPressed,
                       totalAmount: totalPrice,
+                      products: cartItems, // Pass cart items to OrderForm
                     )
                     : ListView.builder(
                       itemCount:
