@@ -20,8 +20,9 @@ class _StartPageState extends State<StartPage> {
     },
     {
       "image": "assets/images/start1.jpg",
-      "title": "Freshly Made Daily!",
-      "subtitle": "Enjoy delicious onigiri made with the freshest ingredients.",
+      "title": "Easy Ordering Process!",
+      "subtitle":
+          "Order your favorite onigiri in just a few taps! Select your items and choose your pickup time.",
     },
     {
       "image": "assets/images/start2.jpg",
@@ -54,7 +55,6 @@ class _StartPageState extends State<StartPage> {
                       fit: BoxFit.cover,
                     ),
           ),
-
           Expanded(
             child: Container(
               width: double.infinity,
@@ -104,7 +104,9 @@ class _StartPageState extends State<StartPage> {
                     ),
                   ),
 
-                  const SizedBox(height: 40),
+                  const SizedBox(
+                    height: 140,
+                  ), // Increased from 40 to push dots lower
 
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -124,7 +126,9 @@ class _StartPageState extends State<StartPage> {
                     }),
                   ),
 
-                  const SizedBox(height: 35),
+                  const SizedBox(
+                    height: 55,
+                  ), // Increased from 35 to push button lower
 
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
@@ -147,7 +151,9 @@ class _StartPageState extends State<StartPage> {
                     },
                   ),
 
-                  const SizedBox(height: 25),
+                  const SizedBox(
+                    height: 30,
+                  ), // Increased from 25 for better spacing
                 ],
               ),
             ),

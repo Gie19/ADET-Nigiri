@@ -20,11 +20,24 @@ class _CartPageState extends State<CartPage> {
       showOrderForm = false;
     });
 
-    // Show a success message
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Order placed successfully!'),
+      SnackBar(
+        content: Row(
+          children: const [
+            Icon(Icons.check_circle, color: Colors.white),
+            SizedBox(width: 10),
+            Text(
+              "Order placed successfully!",
+              style: TextStyle(fontSize: 16.0, color: Colors.white),
+            ),
+          ],
+        ),
         backgroundColor: Colors.green,
+        behavior: SnackBarBehavior.floating,
+        duration: const Duration(seconds: 3),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
       ),
     );
   }
@@ -53,14 +66,36 @@ class _CartPageState extends State<CartPage> {
             color: const Color(0xFF090C9B),
             child:
                 cartItems.isEmpty && !showOrderForm
-                    ? const Center(
-                      child: Text(
-                        "Your cart is empty!",
-                        style: TextStyle(
-                          fontSize: 30.0,
-                          fontFamily: "OpenSans",
-                          color: Colors.white,
-                        ),
+                    ? Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const [
+                          Icon(
+                            Icons.shopping_cart_outlined,
+                            color: Colors.white,
+                            size: 80.0,
+                          ),
+                          SizedBox(height: 20.0),
+                          Text(
+                            "Your cart is empty!",
+                            style: TextStyle(
+                              fontSize: 25.0,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: "OpenSans",
+                              color: Colors.white,
+                            ),
+                          ),
+                          SizedBox(height: 10.0),
+                          Text(
+                            "Add items to your cart to see them here.",
+                            style: TextStyle(
+                              fontSize: 16.0,
+                              fontFamily: "OpenSans",
+                              color: Colors.white70,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
                       ),
                     )
                     : showOrderForm
@@ -69,128 +104,148 @@ class _CartPageState extends State<CartPage> {
                       onBackPressed: _handleBackPressed,
                       totalAmount: totalPrice,
                     )
-                    : ListView.builder(
-                      itemCount:
-                          cartItems.length + 1, // Add 1 for the total section
-                      itemBuilder: (context, index) {
-                        if (index == cartItems.length) {
-                          // Total Price Section
-                          return Container(
-                            padding: const EdgeInsets.all(16.0),
-                            decoration: const BoxDecoration(
-                              border: Border(
-                                top: BorderSide(
-                                  color: Colors.white,
-                                  width: 1.0,
-                                ), // White line
-                              ),
+                    : Column(
+                      children: [
+                        const Padding(
+                          padding: EdgeInsets.symmetric(vertical: 20.0),
+                          child: Text(
+                            "My Cart",
+                            style: TextStyle(
+                              fontSize: 24.0,
+                              fontFamily: "OpenSans",
+                              color: Colors.white,
                             ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const Text(
-                                  "Total:",
-                                  style: TextStyle(
-                                    fontSize: 20.0,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white, // White text
+                          ),
+                        ),
+                        Expanded(
+                          child: ListView.builder(
+                            itemCount: cartItems.length + 1,
+                            itemBuilder: (context, index) {
+                              if (index == cartItems.length) {
+                                // Total Price Section
+                                return Container(
+                                  padding: const EdgeInsets.all(16.0),
+                                  decoration: const BoxDecoration(
+                                    border: Border(
+                                      top: BorderSide(
+                                        color: Colors.white,
+                                        width: 1.0,
+                                      ),
+                                    ),
                                   ),
-                                ),
-                                Text(
-                                  "\$${totalPrice.toStringAsFixed(2)}",
-                                  style: const TextStyle(
-                                    fontSize: 20.0,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white, // White text
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      const Text(
+                                        "Total:",
+                                        style: TextStyle(
+                                          fontSize: 20.0,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      Text(
+                                        "\$${totalPrice.toStringAsFixed(2)}",
+                                        style: const TextStyle(
+                                          fontSize: 20.0,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                ),
-                              ],
-                            ),
-                          );
-                        }
+                                );
+                              }
 
-                        final cartItem = cartItems[index];
-                        return ListTile(
-                          contentPadding: const EdgeInsets.symmetric(
-                            vertical: 8.0,
-                            horizontal: 16.0,
-                          ),
-                          leading: Image.asset(
-                            cartItem['image'] ?? 'assets/images/default.png',
-                            width: 120.0,
-                            height: 120.0,
-                            fit: BoxFit.cover,
-                          ),
-                          title: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                cartItem['name'],
-                                style: const TextStyle(
-                                  fontSize: 18.0,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
+                              final cartItem = cartItems[index];
+                              return ListTile(
+                                contentPadding: const EdgeInsets.symmetric(
+                                  vertical: 8.0,
+                                  horizontal: 16.0,
                                 ),
-                              ),
-                              const SizedBox(height: 8.0),
-                              Text(
-                                "Price: \$${cartItem['price']}",
-                                style: const TextStyle(
-                                  fontSize: 16.0,
-                                  color: Colors.white,
+                                leading: Image.asset(
+                                  cartItem['image'] ??
+                                      'assets/images/default.png',
+                                  width: 120.0,
+                                  height: 120.0,
+                                  fit: BoxFit.cover,
                                 ),
-                              ),
-                              Row(
-                                children: [
-                                  IconButton(
-                                    onPressed: () {
-                                      setState(() {
-                                        if (cartItem['quantity'] > 1) {
-                                          cartItem['quantity']--;
-                                        }
-                                      });
-                                    },
-                                    icon: const Icon(
-                                      Icons.remove_circle,
-                                      color: Colors.white,
+                                title: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      cartItem['name'],
+                                      style: const TextStyle(
+                                        fontSize: 18.0,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white,
+                                      ),
                                     ),
-                                  ),
-                                  Text(
-                                    "${cartItem['quantity']}",
-                                    style: const TextStyle(
-                                      fontSize: 16.0,
-                                      color: Colors.white,
+                                    const SizedBox(height: 8.0),
+                                    Text(
+                                      "Price: \$${cartItem['price']}",
+                                      style: const TextStyle(
+                                        fontSize: 16.0,
+                                        color: Colors.white,
+                                      ),
                                     ),
-                                  ),
-                                  IconButton(
-                                    onPressed: () {
-                                      setState(() {
-                                        cartItem['quantity']++;
-                                      });
-                                    },
-                                    icon: const Icon(
-                                      Icons.add_circle,
-                                      color: Colors.white,
+                                    Row(
+                                      children: [
+                                        IconButton(
+                                          onPressed: () {
+                                            setState(() {
+                                              if (cartItem['quantity'] > 1) {
+                                                cartItem['quantity']--;
+                                              }
+                                            });
+                                          },
+                                          icon: const Icon(
+                                            Icons.remove_circle,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                        Text(
+                                          "${cartItem['quantity']}",
+                                          style: const TextStyle(
+                                            fontSize: 16.0,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                        IconButton(
+                                          onPressed: () {
+                                            setState(() {
+                                              cartItem['quantity']++;
+                                            });
+                                          },
+                                          icon: const Icon(
+                                            Icons.add_circle,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                        const Spacer(),
+                                        IconButton(
+                                          onPressed: () {
+                                            setState(() {
+                                              CartManager.removeFromCart(
+                                                cartItem,
+                                              );
+                                            });
+                                          },
+                                          icon: const Icon(
+                                            Icons.close,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                  ),
-                                  const Spacer(),
-                                  IconButton(
-                                    onPressed: () {
-                                      setState(() {
-                                        CartManager.removeFromCart(cartItem);
-                                      });
-                                    },
-                                    icon: const Icon(
-                                      Icons.close,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
+                                  ],
+                                ),
+                              );
+                            },
                           ),
-                        );
-                      },
+                        ),
+                      ],
                     ),
           ),
           // Forward Button Positioned at the Bottom-Right
@@ -205,10 +260,10 @@ class _CartPageState extends State<CartPage> {
                     showOrderForm = true;
                   });
                 },
-                backgroundColor: Colors.white, // Blue background
+                backgroundColor: Colors.white,
                 child: const Icon(
                   Icons.arrow_forward,
-                  color: Color(0xFF090C9B), // White color
+                  color: Color(0xFF090C9B),
                 ),
               ),
             ),
