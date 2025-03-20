@@ -56,7 +56,7 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
               ),
               title: const Text("Orders"),
               onTap: () {
-                Navigator.pushNamed(context, "/orders");
+                Navigator.pushNamed(context, "/cart");
               },
             ),
             ListTile(
