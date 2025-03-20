@@ -105,7 +105,7 @@ class _ProductOneCardState extends State<ProductOneCard> {
                     children: [
                       // Product Price
                       Text(
-                        "\$${product['price']}",
+                        "\₱${product['price']}",
                         style: const TextStyle(
                           fontSize: 30.0,
                           fontFamily: "OpenSans",

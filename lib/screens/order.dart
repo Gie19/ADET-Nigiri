@@ -278,7 +278,7 @@ class _OrderFormState extends State<OrderForm> {
                       ),
                     ),
                     Text(
-                      "\$${widget.totalAmount.toStringAsFixed(2)}",
+                      "\₱${widget.totalAmount.toStringAsFixed(2)}",
                       style: const TextStyle(
                         fontSize: 16.0,
                         fontWeight: FontWeight.bold,
