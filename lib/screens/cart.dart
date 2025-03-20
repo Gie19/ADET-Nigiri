@@ -168,63 +168,72 @@ class _CartPageState extends State<CartPage> {
                                 leading: Image.asset(
                                   cartItem['image'] ??
                                       'assets/images/default.png',
-                                  width: 120.0,
-                                  height: 120.0,
+                                  width: 100.0,
+                                  height: 100.0,
                                   fit: BoxFit.cover,
                                 ),
                                 title: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
-                                      cartItem['name'],
-                                      style: const TextStyle(
-                                        fontSize: 18.0,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                    const SizedBox(height: 8.0),
-                                    Text(
-                                      "Price: ₱{cartItem['price']}",
-                                      style: const TextStyle(
-                                        fontSize: 16.0,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                    Row(
-                                      children: [
-                                        IconButton(
-                                          onPressed: () {
-                                            setState(() {
-                                              if (cartItem['quantity'] > 1) {
-                                                cartItem['quantity']--;
-                                              }
-                                            });
-                                          },
-                                          icon: const Icon(
-                                            Icons.remove_circle,
-                                            color: Colors.white,
-                                          ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 8.0),
+                                      child: Text(
+                                        cartItem['name'],
+                                        style: const TextStyle(
+                                          fontSize: 18.0,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white,
                                         ),
+                                      ),
+                                    ),
+                                    const SizedBox(height: 0.0),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
                                         Text(
-                                          "${cartItem['quantity']}",
+                                          "₱${cartItem['price']}",
                                           style: const TextStyle(
                                             fontSize: 16.0,
                                             color: Colors.white,
                                           ),
                                         ),
-                                        IconButton(
-                                          onPressed: () {
-                                            setState(() {
-                                              cartItem['quantity']++;
-                                            });
-                                          },
-                                          icon: const Icon(
-                                            Icons.add_circle,
-                                            color: Colors.white,
-                                          ),
+                                        Row(
+                                          children: [
+                                            IconButton(
+                                              onPressed: () {
+                                                setState(() {
+                                                  if (cartItem['quantity'] >
+                                                      1) {
+                                                    cartItem['quantity']--;
+                                                  }
+                                                });
+                                              },
+                                              icon: const Icon(
+                                                Icons.remove_circle,
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                            Text(
+                                              "${cartItem['quantity']}",
+                                              style: const TextStyle(
+                                                fontSize: 16.0,
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                            IconButton(
+                                              onPressed: () {
+                                                setState(() {
+                                                  cartItem['quantity']++;
+                                                });
+                                              },
+                                              icon: const Icon(
+                                                Icons.add_circle,
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                          ],
                                         ),
-                                        const Spacer(),
                                         IconButton(
                                           onPressed: () {
                                             setState(() {
@@ -235,7 +244,7 @@ class _CartPageState extends State<CartPage> {
                                           },
                                           icon: const Icon(
                                             Icons.close,
-                                            color: Colors.white,
+                                            color: Colors.red, // X Button Red
                                           ),
                                         ),
                                       ],
@@ -249,9 +258,9 @@ class _CartPageState extends State<CartPage> {
                       ],
                     ),
           ),
-          // Forward Button Positioned at the Bottom-Right
+          // Next Button Positioned at the Bottom-Right
           if (cartItems.isNotEmpty &&
-              !showOrderForm) // Show only if the cart is not empty and order form is not displayed
+              !showOrderForm) // Show only if cart has items & order form is hidden
             Positioned(
               bottom: 16.0,
               right: 16.0,

@@ -21,7 +21,7 @@ class _ProductOneCardState extends State<ProductOneCard> {
     'name': "Bird Onigiri",
     'price': 150.00,
     'description':
-        "This is a detailed description of the product. It provides more information about the product's features and benefits.",
+        "Nori, Rice, BBQ Fried Chix, Tamago, Furikake And Special Sauce With A Hint Of Wasabi.",
   };
 
   @override
@@ -108,7 +108,6 @@ class _ProductOneCardState extends State<ProductOneCard> {
                         "\₱${product['price']}",
                         style: const TextStyle(
                           fontSize: 30.0,
-                          fontFamily: "OpenSans",
                           fontWeight: FontWeight.bold,
                         ),
                       ),

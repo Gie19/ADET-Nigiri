@@ -259,7 +259,7 @@ class _OrderFormState extends State<OrderForm> {
                         style: const TextStyle(fontSize: 16.0),
                       ),
                       subtitle: Text(
-                        "Quantity: ${product['quantity']} - Price: \$${product['price']}",
+                        "Quantity: ${product['quantity']} - Price: \₱${product['price']}",
                         style: const TextStyle(fontSize: 14.0),
                       ),
                     );

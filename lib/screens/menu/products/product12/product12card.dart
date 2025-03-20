@@ -4,23 +4,23 @@ import 'package:practiceapp/screens/navbars/topbar.dart';
 import 'package:practiceapp/utils/favorites_manager.dart';
 import 'package:practiceapp/utils/cart_manager.dart';
 
-class ProductTwoCard extends StatefulWidget {
-  const ProductTwoCard({super.key});
+class ProductTwelveCard extends StatefulWidget {
+  const ProductTwelveCard({super.key});
 
   @override
-  State<ProductTwoCard> createState() => _ProductTwoCardState();
+  State<ProductTwelveCard> createState() => _ProductTwelveCardState();
 }
 
-class _ProductTwoCardState extends State<ProductTwoCard> {
+class _ProductTwelveCardState extends State<ProductTwelveCard> {
   int quantity = 1;
 
   // Product details
   final Map<String, dynamic> product = {
-    'image': "assets/images/product2.JPG",
-    'image2': "assets/images/product2r.png",
-    'name': "Beef Curry Onigiri",
-    'price': 260.00,
-    'description': "Nori, Rice, Beef Curry, runny Egg with Potato Wedgies.",
+    'image': "assets/images/product12.JPG",
+    'image2': "assets/images/product12r.png",
+    'name': "Kian’s Tofu",
+    'price': 180.00,
+    'description': "Crispy Tofu Drenched in Spicy Sesame Sauce.",
   };
   @override
   Widget build(BuildContext context) {

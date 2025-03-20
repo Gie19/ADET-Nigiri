@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:practiceapp/screens/menu/products/product2/product2card.dart';
+import 'package:practiceapp/screens/menu/products/product9/product9card.dart';
 
-class ProductTwo extends StatelessWidget {
-  const ProductTwo({super.key});
+class ProductNine extends StatelessWidget {
+  const ProductNine({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -10,7 +10,7 @@ class ProductTwo extends StatelessWidget {
       onTap: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const ProductTwoCard()),
+          MaterialPageRoute(builder: (context) => const ProductNineCard()),
         );
       },
       child: Card(
@@ -29,14 +29,14 @@ class ProductTwo extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12.0),
                   image: DecorationImage(
-                    image: AssetImage("assets/images/product2.JPG"),
+                    image: AssetImage("assets/images/product9.JPG"),
                     fit: BoxFit.cover,
                   ),
                 ),
               ),
               const SizedBox(height: 10),
               const Text(
-                "Beef Curry Onigiri",
+                "Curry Fries",
                 style: TextStyle(
                   fontSize: 18.0,
                   fontWeight: FontWeight.bold,
@@ -46,7 +46,7 @@ class ProductTwo extends StatelessWidget {
               const SizedBox(height: 5),
 
               const Text(
-                "₱ 260.00",
+                "₱ 180.00",
                 style: TextStyle(
                   fontSize: 16.0,
                   fontFamily: "Helvetica",
