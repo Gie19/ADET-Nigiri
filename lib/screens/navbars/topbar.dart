@@ -1,7 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class TopBar extends StatelessWidget implements PreferredSizeWidget {
   const TopBar({super.key});
+
+  // Function to open URLs
+  static void launchURL(String url) async {
+    final Uri uri = Uri.parse(url);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
 
   static Widget buildDrawer(BuildContext context) {
     Color darkBlue = const Color(0xFF123A6D);
@@ -82,7 +93,7 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      // launchURL("https://facebook.com/NigiriStation");
+                      launchURL("https://facebook.com/NigiriStation");
                     },
                     child: ColorFiltered(
                       colorFilter: ColorFilter.mode(darkBlue, BlendMode.srcIn),
@@ -96,7 +107,7 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
                   const SizedBox(width: 15),
                   GestureDetector(
                     onTap: () {
-                      // launchURL("https://instagram.com/nigiristation");
+                      launchURL("https://instagram.com/nigiristation");
                     },
                     child: ColorFiltered(
                       colorFilter: ColorFilter.mode(darkBlue, BlendMode.srcIn),
@@ -110,7 +121,7 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
                   const SizedBox(width: 15),
                   GestureDetector(
                     onTap: () {
-                      // launchURL("https://tiktok.com/@nigiristation");
+                      launchURL("https://tiktok.com/@nigiristation");
                     },
                     child: ColorFiltered(
                       colorFilter: ColorFilter.mode(darkBlue, BlendMode.srcIn),

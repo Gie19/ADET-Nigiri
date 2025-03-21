@@ -63,8 +63,7 @@ class _OrderFormState extends State<OrderForm> {
     Map<String, dynamic> orderDetails,
   ) async {
     const String webAppUrl =
-        "https://script.google.com/macros/s/AKfycbz2kl6H-60aMpzer00RkYEMgAuSRJM23bKspNTDbtW_0XWiLVxg58Ryhd7FjGMHZV9x/exec"; // Replace with your Web App URL
-
+        "https://script.google.com/macros/s/AKfycbz2kl6H-60aMpzer00RkYEMgAuSRJM23bKspNTDbtW_0XWiLVxg58Ryhd7FjGMHZV9x/exec";
     try {
       final response = await http.post(
         Uri.parse(webAppUrl),
@@ -77,13 +76,6 @@ class _OrderFormState extends State<OrderForm> {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text("Order sent successfully!")),
-          );
-        }
-      } else {
-        print("Failed to send order: ${response.statusCode}");
-        if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text("Failed to send order.")),
           );
         }
       }

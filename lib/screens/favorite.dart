@@ -68,8 +68,8 @@ class _FavoritesScreenState extends State<FavoritesPage> {
                         itemCount: favorites.length,
                         separatorBuilder:
                             (context, index) => const Divider(
-                              color: Colors.white,
-                              thickness: 1.0,
+                              color: Color.fromARGB(255, 30, 18, 75),
+                              thickness: 0.0,
                               indent: 30.0,
                               endIndent: 30.0,
                             ),
