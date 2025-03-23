@@ -104,7 +104,7 @@ class _ProductThreeCardState extends State<ProductThreeCard> {
                     children: [
                       // Product Price
                       Text(
-                        "\₱${product['price']}",
+                        "₱ ${product['price'].toStringAsFixed(1)}",
                         style: const TextStyle(
                           fontSize: 30.0,
                           fontWeight: FontWeight.bold,

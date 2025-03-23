@@ -52,7 +52,6 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
                 ],
               ),
             ),
-
             ListTile(
               leading: const Icon(Icons.menu, color: Color(0xFF2D2D2D)),
               title: const Text("Menu"),
@@ -78,14 +77,17 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
               },
             ),
             const Divider(color: Colors.white),
-
             ListTile(
               leading: const Icon(Icons.phone, color: Color(0xFF2D2D2D)),
               title: const Text("Contact Us"),
-              subtitle: const Text("(+63) 917 522 5156"),
+              subtitle: GestureDetector(
+                onTap: () {
+                  launchURL("tel:+639175225156");
+                },
+                child: const Text("(+63) 917 522 5156"),
+              ),
             ),
             const Divider(color: Colors.white),
-
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Row(
