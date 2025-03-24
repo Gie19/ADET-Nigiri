@@ -18,15 +18,16 @@ class _ProductOneCardState extends State<ProductOneCard> {
   final Map<String, dynamic> product = {
     'image': "assets/images/product1.JPG",
     'image2': "assets/images/product1r.png",
-    'name': "Product 1",
+    'name': "Bird Onigiri",
     'price': 150.00,
     'description':
-        "This is a detailed description of the product. It provides more information about the product's features and benefits.",
+        "Nori, Rice, BBQ Fried Chix, Tamago, Furikake And Special Sauce With A Hint Of Wasabi.",
   };
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFF090C9B),
       appBar: const TopBar(),
       drawer: TopBar.buildDrawer(context),
       body: Column(
@@ -58,22 +59,16 @@ class _ProductOneCardState extends State<ProductOneCard> {
                     // Product Image
                     Center(
                       child: SizedBox(
-                        // width:
-                        // double
-                        //     .infinity, // Ensures the image takes the full width of the parent
                         child: Image.asset(
                           product['image2'],
                           height: 300.0,
-                          fit:
-                              BoxFit
-                                  .cover, // Adjust fit to ensure proper centering
+                          fit: BoxFit.cover,
                         ),
                       ),
                     ),
                   ],
                 ),
               ),
-              // Back Button Positioned at the Top-Left
               Positioned(
                 top: 16.0,
                 left: 16.0,
@@ -96,8 +91,8 @@ class _ProductOneCardState extends State<ProductOneCard> {
               decoration: const BoxDecoration(
                 color: Color(0xFFB4C5E4),
                 borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(25.0),
-                  topRight: Radius.circular(25.0),
+                  topLeft: Radius.circular(35.0),
+                  topRight: Radius.circular(35.0),
                 ),
               ),
               padding: const EdgeInsets.all(16.0),
@@ -110,10 +105,9 @@ class _ProductOneCardState extends State<ProductOneCard> {
                     children: [
                       // Product Price
                       Text(
-                        "\$${product['price']}",
+                        "₱ ${product['price'].toStringAsFixed(1)}",
                         style: const TextStyle(
                           fontSize: 30.0,
-                          fontFamily: "OpenSans",
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -124,26 +118,66 @@ class _ProductOneCardState extends State<ProductOneCard> {
                             if (FavoritesManager.isFavorite(product)) {
                               FavoritesManager.removeFavorite(product);
                               ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text("Removed from favorites!"),
+                                SnackBar(
+                                  content: Row(
+                                    children: const [
+                                      Icon(
+                                        Icons.favorite_border,
+                                        color: Colors.white,
+                                      ),
+                                      SizedBox(width: 10),
+                                      Text("Removed from favorites!"),
+                                    ],
+                                  ),
+                                  backgroundColor: Colors.red,
+                                  behavior: SnackBarBehavior.floating,
+                                  duration: const Duration(seconds: 2),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                  ),
                                 ),
                               );
                             } else {
                               FavoritesManager.addFavorite(product);
                               ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text("Added to favorites!"),
+                                SnackBar(
+                                  content: Row(
+                                    children: const [
+                                      Icon(Icons.favorite, color: Colors.white),
+                                      SizedBox(width: 10),
+                                      Text("Added to favorites!"),
+                                    ],
+                                  ),
+                                  backgroundColor: const Color.fromARGB(
+                                    255,
+                                    68,
+                                    123,
+                                    186,
+                                  ),
+                                  behavior: SnackBarBehavior.floating,
+                                  duration: const Duration(seconds: 2),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                  ),
                                 ),
                               );
                             }
                           });
                         },
-                        child: Icon(
-                          FavoritesManager.isFavorite(product)
-                              ? Icons.favorite
-                              : Icons.favorite_border,
-                          color: Colors.red,
-                          size: 30.0,
+                        child: Container(
+                          width: 40.0,
+                          height: 40.0,
+                          decoration: BoxDecoration(
+                            color: const Color.fromARGB(255, 38, 132, 180),
+                            shape: BoxShape.circle,
+                          ),
+                          child: Icon(
+                            FavoritesManager.isFavorite(product)
+                                ? Icons.favorite
+                                : Icons.favorite_border,
+                            color: Colors.white,
+                            size: 24.0,
+                          ),
                         ),
                       ),
                     ],
@@ -164,36 +198,67 @@ class _ProductOneCardState extends State<ProductOneCard> {
                       // Quantity Selector
                       Row(
                         children: [
-                          IconButton(
-                            onPressed: () {
-                              setState(() {
-                                if (quantity > 1) quantity--;
-                              });
-                            },
-                            icon: const Icon(Icons.remove, color: Colors.white),
+                          // Decrease Quantity Button
+                          Container(
+                            width: 30.0,
+                            height: 30.0,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              shape: BoxShape.circle,
+                            ),
+                            child: IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  if (quantity > 1) quantity--;
+                                });
+                              },
+                              icon: const Icon(
+                                Icons.remove,
+                                color: Color(0xFF090C9B),
+                                size: 20.0,
+                              ),
+                              padding: EdgeInsets.zero,
+                            ),
                           ),
+                          const SizedBox(width: 10),
+                          // Quantity Text
                           Text(
                             "$quantity",
                             style: const TextStyle(
-                              fontSize: 32.0,
+                              fontSize: 22.0,
                               fontFamily: "OpenSans",
                               color: Colors.white,
                             ),
                           ),
-                          IconButton(
-                            onPressed: () {
-                              setState(() {
-                                quantity++;
-                              });
-                            },
-                            icon: const Icon(Icons.add, color: Colors.white),
+                          const SizedBox(width: 10),
+                          // Increase Quantity Button
+                          Container(
+                            width: 30.0,
+                            height: 30.0,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              shape: BoxShape.circle,
+                            ),
+                            child: IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  quantity++;
+                                });
+                              },
+                              icon: const Icon(
+                                Icons.add,
+                                color: Color(0xFF090C9B),
+                                size: 16.0,
+                              ),
+                              padding: EdgeInsets.zero,
+                            ),
                           ),
                         ],
                       ),
                       // Add to Cart Button
                       SizedBox(
-                        width: 200.0, // Set the width of the button
-                        height: 50.0, // Set the height of the button
+                        width: 200.0,
+                        height: 50.0,
                         child: ElevatedButton.icon(
                           onPressed: () {
                             setState(() {
@@ -202,9 +267,24 @@ class _ProductOneCardState extends State<ProductOneCard> {
                                 // If it exists, update the quantity and show a message
                                 CartManager.addToCart(product, quantity);
                                 ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content: Text(
-                                      "Product already in cart. Quantity updated!",
+                                  SnackBar(
+                                    content: Row(
+                                      children: const [
+                                        Icon(
+                                          Icons.shopping_cart,
+                                          color: Colors.white,
+                                        ),
+                                        SizedBox(width: 10),
+                                        Text(
+                                          "Product already in cart. Quantity updated!",
+                                        ),
+                                      ],
+                                    ),
+                                    backgroundColor: Colors.orange,
+                                    behavior: SnackBarBehavior.floating,
+                                    duration: const Duration(seconds: 2),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10.0),
                                     ),
                                   ),
                                 );
@@ -212,8 +292,28 @@ class _ProductOneCardState extends State<ProductOneCard> {
                                 // If it doesn't exist, add it to the cart and show a message
                                 CartManager.addToCart(product, quantity);
                                 ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content: Text("Added to cart!"),
+                                  SnackBar(
+                                    content: Row(
+                                      children: const [
+                                        Icon(
+                                          Icons.check_circle,
+                                          color: Colors.white,
+                                        ),
+                                        SizedBox(width: 10),
+                                        Text("Added to cart!"),
+                                      ],
+                                    ),
+                                    backgroundColor: Color.fromARGB(
+                                      255,
+                                      68,
+                                      123,
+                                      186,
+                                    ),
+                                    behavior: SnackBarBehavior.floating,
+                                    duration: const Duration(seconds: 2),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                    ),
                                   ),
                                 );
                               }

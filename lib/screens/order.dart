@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class OrderForm extends StatefulWidget {
   final Function() onCheckoutComplete;
   final Function() onBackPressed;
   final double totalAmount;
+  final List<Map<String, dynamic>> products;
 
   const OrderForm({
     super.key,
     required this.onCheckoutComplete,
     required this.onBackPressed,
     required this.totalAmount,
+    required this.products,
   });
 
   @override
@@ -33,24 +37,61 @@ class _OrderFormState extends State<OrderForm> {
   }
 
   void _showDateTimePicker() async {
+    if (!mounted) {
+      return;
+    }
+
     final DateTime? pickedDate = await showDatePicker(
-      context: context,
+      context: context, // Required to display the picker
       initialDate: DateTime.now(),
       firstDate: DateTime.now(),
       lastDate: DateTime.now().add(const Duration(days: 30)),
     );
 
-    if (pickedDate != null) {
-      final TimeOfDay? pickedTime = await showTimePicker(
-        context: context,
-        initialTime: TimeOfDay.now(),
+    if (!mounted || pickedDate == null) {
+      return;
+    }
+    final TimeOfDay? pickedTime = await showTimePicker(
+      context: context, // Required to display the picker
+      initialTime: TimeOfDay.now(),
+    );
+
+    if (!mounted || pickedTime == null) {
+      return;
+    }
+
+    setState(() {
+      _dateTimeController.text =
+          "${pickedDate.day}/${pickedDate.month}/${pickedDate.year} at ${pickedTime.format(context)}";
+    });
+  }
+
+  Future<void> _sendOrderToGoogleSheet(
+    Map<String, dynamic> orderDetails,
+  ) async {
+    const String webAppUrl =
+        "https://script.google.com/macros/s/AKfycbwog_aBgpG14wlN45JQY15P9fUG6gAR2Hh8yQ_y0QAE10-MPWvaYiZUticZw5dkc3baXw/exec";
+    try {
+      final response = await http.post(
+        Uri.parse(webAppUrl),
+        headers: {"Content-Type": "application/json"},
+        body: jsonEncode(orderDetails),
       );
 
-      if (pickedTime != null) {
-        setState(() {
-          _dateTimeController.text =
-              "${pickedDate.day}/${pickedDate.month}/${pickedDate.year} at ${pickedTime.format(context)}";
-        });
+      if (response.statusCode == 200) {
+        debugPrint("Order sent successfully: ${response.body}");
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text("Order sent successfully!")),
+          );
+        }
+      }
+    } catch (e) {
+      debugPrint("Error sending order: $e");
+      if (mounted) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(const SnackBar(content: Text("Error sending order.")));
       }
     }
   }
@@ -196,6 +237,56 @@ class _OrderFormState extends State<OrderForm> {
                   },
                 ),
                 const SizedBox(height: 30.0),
+                const Text(
+                  "Order Summary",
+                  style: TextStyle(
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
+                ),
+                const SizedBox(height: 10.0),
+                ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: widget.products.length,
+                  itemBuilder: (context, index) {
+                    final product = widget.products[index];
+                    return ListTile(
+                      title: Text(
+                        product['name'],
+                        style: const TextStyle(fontSize: 16.0),
+                      ),
+                      subtitle: Text(
+                        "Quantity: ${product['quantity']} - Price: ₱ ${product['price']}",
+                        style: const TextStyle(fontSize: 14.0),
+                      ),
+                    );
+                  },
+                ),
+                const SizedBox(height: 20.0),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      "Total Amount:",
+                      style: TextStyle(
+                        fontSize: 16.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      ),
+                    ),
+                    Text(
+                      "₱ ${widget.totalAmount.toStringAsFixed(2)}",
+                      style: const TextStyle(
+                        fontSize: 16.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 30.0),
                 Center(
                   child: Container(
                     width: MediaQuery.of(context).size.width * 0.8,
@@ -211,12 +302,14 @@ class _OrderFormState extends State<OrderForm> {
                     child: ElevatedButton(
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
-                          // Process the order
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text('Processing Order...'),
-                            ),
-                          );
+                          final filteredProducts =
+                              widget.products.map((product) {
+                                return {
+                                  'name': product['name'],
+                                  'quantity': product['quantity'],
+                                  'price': product['price'],
+                                };
+                              }).toList();
 
                           // Create order object
                           final orderDetails = {
@@ -225,10 +318,12 @@ class _OrderFormState extends State<OrderForm> {
                             'contact': _contactController.text,
                             'email': _emailController.text,
                             'amount': widget.totalAmount,
+                            'products':
+                                filteredProducts, // Use filtered products
                           };
 
-                          // Here you would typically send the order to a backend
-                          print('Order details: $orderDetails');
+                          // Send order details to Google Sheet
+                          _sendOrderToGoogleSheet(orderDetails);
 
                           // Call the callback to notify the parent widget
                           widget.onCheckoutComplete();
@@ -247,11 +342,11 @@ class _OrderFormState extends State<OrderForm> {
                         children: [
                           const Icon(Icons.check_circle, size: 20.0),
                           const SizedBox(width: 8.0),
-                          Text(
+                          const Text(
                             "Checkout",
                             style: TextStyle(
                               fontSize: 16.0,
-                              color: const Color(0xFF090C9B),
+                              color: Color(0xFF090C9B),
                               fontWeight: FontWeight.bold,
                             ),
                           ),

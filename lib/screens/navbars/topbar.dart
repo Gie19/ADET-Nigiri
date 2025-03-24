@@ -1,7 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class TopBar extends StatelessWidget implements PreferredSizeWidget {
   const TopBar({super.key});
+
+  // Function to open URLs
+  static void launchURL(String url) async {
+    final Uri uri = Uri.parse(url);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
 
   static Widget buildDrawer(BuildContext context) {
     Color darkBlue = const Color(0xFF123A6D);
@@ -41,7 +52,6 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
                 ],
               ),
             ),
-
             ListTile(
               leading: const Icon(Icons.menu, color: Color(0xFF2D2D2D)),
               title: const Text("Menu"),
@@ -56,7 +66,7 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
               ),
               title: const Text("Orders"),
               onTap: () {
-                Navigator.pushNamed(context, "/orders");
+                Navigator.pushNamed(context, "/cart");
               },
             ),
             ListTile(
@@ -67,14 +77,17 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
               },
             ),
             const Divider(color: Colors.white),
-
             ListTile(
               leading: const Icon(Icons.phone, color: Color(0xFF2D2D2D)),
               title: const Text("Contact Us"),
-              subtitle: const Text("(+63) 917 522 5156"),
+              subtitle: GestureDetector(
+                onTap: () {
+                  launchURL("tel:+639175225156");
+                },
+                child: const Text("(+63) 917 522 5156"),
+              ),
             ),
             const Divider(color: Colors.white),
-
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Row(
@@ -82,7 +95,7 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      // launchURL("https://facebook.com/NigiriStation");
+                      launchURL("https://facebook.com/NigiriStation");
                     },
                     child: ColorFiltered(
                       colorFilter: ColorFilter.mode(darkBlue, BlendMode.srcIn),
@@ -96,7 +109,7 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
                   const SizedBox(width: 15),
                   GestureDetector(
                     onTap: () {
-                      // launchURL("https://instagram.com/nigiristation");
+                      launchURL("https://instagram.com/nigiristation");
                     },
                     child: ColorFiltered(
                       colorFilter: ColorFilter.mode(darkBlue, BlendMode.srcIn),
@@ -110,7 +123,7 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
                   const SizedBox(width: 15),
                   GestureDetector(
                     onTap: () {
-                      // launchURL("https://tiktok.com/@nigiristation");
+                      launchURL("https://tiktok.com/@nigiristation");
                     },
                     child: ColorFiltered(
                       colorFilter: ColorFilter.mode(darkBlue, BlendMode.srcIn),

@@ -24,28 +24,32 @@ class ProductTwo extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               // Product Image
-              Image.asset(
-                "assets/images/product2.JPG",
+              Container(
                 height: 120.0,
-                fit: BoxFit.cover,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12.0),
+                  image: DecorationImage(
+                    image: AssetImage("assets/images/product2.JPG"),
+                    fit: BoxFit.cover,
+                  ),
+                ),
               ),
               const SizedBox(height: 10),
-              // Product Label
               const Text(
-                "Product 2",
+                "Beef Curry Onigiri",
                 style: TextStyle(
                   fontSize: 18.0,
                   fontWeight: FontWeight.bold,
-                  fontFamily: "OpenSans",
+                  fontFamily: "Helvetica",
                 ),
               ),
               const SizedBox(height: 5),
-              // Product Price
+
               const Text(
-                "150.00",
+                "₱ 260.00",
                 style: TextStyle(
                   fontSize: 16.0,
-                  fontFamily: "OpenSans",
+                  fontFamily: "Helvetica",
                   color: Colors.black,
                 ),
               ),
