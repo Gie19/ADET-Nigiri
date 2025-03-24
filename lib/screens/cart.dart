@@ -147,7 +147,7 @@ class _CartPageState extends State<CartPage> {
                                         ),
                                       ),
                                       Text(
-                                        "\₱${totalPrice.toStringAsFixed(2)}",
+                                        "₱ ${totalPrice.toStringAsFixed(2)}",
                                         style: const TextStyle(
                                           fontSize: 20.0,
                                           fontWeight: FontWeight.bold,

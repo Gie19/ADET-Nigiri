@@ -63,7 +63,7 @@ class _OrderFormState extends State<OrderForm> {
     Map<String, dynamic> orderDetails,
   ) async {
     const String webAppUrl =
-        "https://script.google.com/macros/s/AKfycbz2kl6H-60aMpzer00RkYEMgAuSRJM23bKspNTDbtW_0XWiLVxg58Ryhd7FjGMHZV9x/exec";
+        "https://script.google.com/macros/s/AKfycbwog_aBgpG14wlN45JQY15P9fUG6gAR2Hh8yQ_y0QAE10-MPWvaYiZUticZw5dkc3baXw/exec";
     try {
       final response = await http.post(
         Uri.parse(webAppUrl),
@@ -251,7 +251,7 @@ class _OrderFormState extends State<OrderForm> {
                         style: const TextStyle(fontSize: 16.0),
                       ),
                       subtitle: Text(
-                        "Quantity: ${product['quantity']} - Price: \₱${product['price']}",
+                        "Quantity: ${product['quantity']} - Price: ₱ ${product['price']}",
                         style: const TextStyle(fontSize: 14.0),
                       ),
                     );
@@ -270,7 +270,7 @@ class _OrderFormState extends State<OrderForm> {
                       ),
                     ),
                     Text(
-                      "\₱${widget.totalAmount.toStringAsFixed(2)}",
+                      "₱ ${widget.totalAmount.toStringAsFixed(2)}",
                       style: const TextStyle(
                         fontSize: 16.0,
                         fontWeight: FontWeight.bold,
@@ -295,7 +295,6 @@ class _OrderFormState extends State<OrderForm> {
                     child: ElevatedButton(
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
-                          // Filter out the 'image' field from products
                           final filteredProducts =
                               widget.products.map((product) {
                                 return {
