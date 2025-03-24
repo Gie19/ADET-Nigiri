@@ -11,7 +11,7 @@ class MenuPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const TopBar(),
-      drawer: TopBar.buildDrawer(context), // Use the Drawer from TopBar
+      drawer: TopBar().buildDrawer(context),
       body: const MenuBody(),
       bottomNavigationBar: BotBar(),
     );

@@ -59,7 +59,7 @@ class _CartPageState extends State<CartPage> {
 
     return Scaffold(
       appBar: TopBar(),
-      drawer: TopBar.buildDrawer(context),
+      drawer: TopBar().buildDrawer(context),
       body: Stack(
         children: [
           Container(

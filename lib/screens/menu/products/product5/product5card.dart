@@ -28,7 +28,7 @@ class _ProductFiveCardState extends State<ProductFiveCard> {
     return Scaffold(
       backgroundColor: const Color(0xFF090C9B),
       appBar: const TopBar(),
-      drawer: TopBar.buildDrawer(context),
+      drawer: TopBar().buildDrawer(context),
       body: Column(
         children: [
           // Top Section: Back Button, Product Name, and Image

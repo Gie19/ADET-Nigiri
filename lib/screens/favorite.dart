@@ -17,7 +17,7 @@ class _FavoritesScreenState extends State<FavoritesPage> {
     final favorites = FavoritesManager.getFavorites();
     return Scaffold(
       appBar: TopBar(),
-      drawer: TopBar.buildDrawer(context),
+      drawer: TopBar().buildDrawer(context),
       body: Container(
         color: const Color(0xFF090C9B),
         child:

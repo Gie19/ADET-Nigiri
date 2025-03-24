@@ -1,20 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_custom_tabs/flutter_custom_tabs_lite.dart';
 
 class TopBar extends StatelessWidget implements PreferredSizeWidget {
   const TopBar({super.key});
 
-  // Function to open URLs
-  static void launchURL(String url) async {
-    final Uri uri = Uri.parse(url);
-    if (await canLaunchUrl(uri)) {
-      await launchUrl(uri);
-    } else {
-      throw 'Could not launch $url';
+  void _launchURL(BuildContext context, String url) async {
+    final theme = Theme.of(context);
+    try {
+      await launchUrl(
+        Uri.parse(url),
+        options: LaunchOptions(
+          barColor: theme.colorScheme.surface,
+          onBarColor: theme.colorScheme.onSurface,
+          barFixingEnabled: false,
+        ),
+      );
+    } catch (e) {
+      debugPrint("Could not launch URL: $e");
     }
   }
 
-  static Widget buildDrawer(BuildContext context) {
+  Widget buildDrawer(BuildContext context) {
     Color darkBlue = const Color(0xFF123A6D);
 
     return Drawer(
@@ -82,7 +88,7 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
               title: const Text("Contact Us"),
               subtitle: GestureDetector(
                 onTap: () {
-                  launchURL("tel:+639175225156");
+                  _launchURL(context, "tel:+639175225156");
                 },
                 child: const Text("(+63) 917 522 5156"),
               ),
@@ -95,7 +101,7 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      launchURL("https://facebook.com/NigiriStation");
+                      _launchURL(context, "https://facebook.com/NigiriStation");
                     },
                     child: ColorFiltered(
                       colorFilter: ColorFilter.mode(darkBlue, BlendMode.srcIn),
@@ -109,7 +115,10 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
                   const SizedBox(width: 15),
                   GestureDetector(
                     onTap: () {
-                      launchURL("https://instagram.com/nigiristation");
+                      _launchURL(
+                        context,
+                        "https://instagram.com/nigiristation",
+                      );
                     },
                     child: ColorFiltered(
                       colorFilter: ColorFilter.mode(darkBlue, BlendMode.srcIn),
@@ -123,7 +132,7 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
                   const SizedBox(width: 15),
                   GestureDetector(
                     onTap: () {
-                      launchURL("https://tiktok.com/@nigiristation");
+                      _launchURL(context, "https://tiktok.com/@nigiristation");
                     },
                     child: ColorFiltered(
                       colorFilter: ColorFilter.mode(darkBlue, BlendMode.srcIn),
