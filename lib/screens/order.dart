@@ -37,26 +37,33 @@ class _OrderFormState extends State<OrderForm> {
   }
 
   void _showDateTimePicker() async {
+    if (!mounted) {
+      return;
+    }
+
     final DateTime? pickedDate = await showDatePicker(
-      context: context,
+      context: context, // Required to display the picker
       initialDate: DateTime.now(),
       firstDate: DateTime.now(),
       lastDate: DateTime.now().add(const Duration(days: 30)),
     );
 
-    if (pickedDate != null) {
-      final TimeOfDay? pickedTime = await showTimePicker(
-        context: context,
-        initialTime: TimeOfDay.now(),
-      );
-
-      if (pickedTime != null) {
-        setState(() {
-          _dateTimeController.text =
-              "${pickedDate.day}/${pickedDate.month}/${pickedDate.year} at ${pickedTime.format(context)}";
-        });
-      }
+    if (!mounted || pickedDate == null) {
+      return;
     }
+    final TimeOfDay? pickedTime = await showTimePicker(
+      context: context, // Required to display the picker
+      initialTime: TimeOfDay.now(),
+    );
+
+    if (!mounted || pickedTime == null) {
+      return;
+    }
+
+    setState(() {
+      _dateTimeController.text =
+          "${pickedDate.day}/${pickedDate.month}/${pickedDate.year} at ${pickedTime.format(context)}";
+    });
   }
 
   Future<void> _sendOrderToGoogleSheet(
@@ -72,7 +79,7 @@ class _OrderFormState extends State<OrderForm> {
       );
 
       if (response.statusCode == 200) {
-        print("Order sent successfully: ${response.body}");
+        debugPrint("Order sent successfully: ${response.body}");
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text("Order sent successfully!")),
@@ -80,7 +87,7 @@ class _OrderFormState extends State<OrderForm> {
         }
       }
     } catch (e) {
-      print("Error sending order: $e");
+      debugPrint("Error sending order: $e");
       if (mounted) {
         ScaffoldMessenger.of(
           context,
