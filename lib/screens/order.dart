@@ -42,7 +42,7 @@ class _OrderFormState extends State<OrderForm> {
     }
 
     final DateTime? pickedDate = await showDatePicker(
-      context: context, // Required to display the picker
+      context: context,
       initialDate: DateTime.now(),
       firstDate: DateTime.now(),
       lastDate: DateTime.now().add(const Duration(days: 30)),
@@ -52,7 +52,7 @@ class _OrderFormState extends State<OrderForm> {
       return;
     }
     final TimeOfDay? pickedTime = await showTimePicker(
-      context: context, // Required to display the picker
+      context: context,
       initialTime: TimeOfDay.now(),
     );
 

@@ -104,9 +104,7 @@ class _StartPageState extends State<StartPage> {
                     ),
                   ),
 
-                  const SizedBox(
-                    height: 140,
-                  ), // Increased from 40 to push dots lower
+                  const SizedBox(height: 140),
 
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -126,9 +124,7 @@ class _StartPageState extends State<StartPage> {
                     }),
                   ),
 
-                  const SizedBox(
-                    height: 55,
-                  ), // Increased from 35 to push button lower
+                  const SizedBox(height: 55),
 
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
@@ -151,9 +147,7 @@ class _StartPageState extends State<StartPage> {
                     },
                   ),
 
-                  const SizedBox(
-                    height: 30,
-                  ), // Increased from 25 for better spacing
+                  const SizedBox(height: 30),
                 ],
               ),
             ),
